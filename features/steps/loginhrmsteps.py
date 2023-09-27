@@ -33,7 +33,7 @@ def verifyLogoHRM(context):
         assert False, "Failed verify logo"
 
 @then(u'Provide the username "{user}" and password "{pwd}"')
-def enter_login_creds(context,user, pwd):
+def enterLoginCreds(context,user, pwd):
     try:
         context.loginPage.enterLoginCredentials(user, pwd)
     except:
@@ -50,23 +50,23 @@ def clickLoginButton (context):
         assert False, "Test is failed in enter login"
 
 @then(u'Login is successful and dashboard is opened')
-def validate_dashboard_page(context):
+def validateDashboardPpage(context):
         try:
             context.dashboardPage.validatePageLoaded()
         except:
             context.driver.close()
             assert False, "Test is failed in validating dashboard"
+
 @then(u'Provide the username "{user}"')
-def enter_login_creds(context, user):
+def enterLoginCreds(context, user):
     try:
         context.loginPage.inputUsername(user)
     except:
         context.driver.close()
         assert False, "Test is failed in enter password"
 
-
 @then(u'Provide the passsword "{pwd}"')
-def enter_login_creds(context, pwd):
+def enterLoginCreds(context, pwd):
     try:
         context.loginPage.inputPassword(pwd)
     except:
@@ -74,16 +74,15 @@ def enter_login_creds(context, pwd):
         assert False, "Test is failed in enter password"
 
 @then(u'Login is failed with invalid credential')
-def validate_invalid_login(context):
+def validateInvalidLogin(context):
     try:
         context.loginPage.validateInvalidCredential()
     except:
         context.driver.close()
         assert False, "Test is failed with invalid credentials"
 
-
 @then(u'Login is failed and empty username error is displayed')
-def validate_empty_username(context):
+def validateEmptyUsername(context):
     try:
         context.loginPage.validateEmptyUsername()
     except:
@@ -91,7 +90,7 @@ def validate_empty_username(context):
         assert False, "Test is failed in validate empty username"
 
 @then(u'Login is failed and empty password error is displayed')
-def validate_empty_password(context):
+def validateEmptyPassword(context):
     try:
         context.loginPage.validateEmptyPassword()
     except:
@@ -99,5 +98,5 @@ def validate_empty_password(context):
         assert False, "Test is failed in validate empty password"
 
 @then(u'browser close')
-def stepImpl(context):
+def closeBrowser(context):
    context.driver.close()

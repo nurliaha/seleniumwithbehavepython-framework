@@ -16,13 +16,15 @@ class LoginPage(BasePage):
         self.input_element(self.TXT_PASSWORD, pwd)
 
     def inputUsername(self, username):
+        self.verify_element_displayed(self.TXT_USERNAME)
         self.input_element(self.TXT_USERNAME, username)
 
-
     def inputPassword (self, password):
+        self.verify_element_displayed(self.TXT_PASSWORD)
         self.input_element(self.TXT_PASSWORD, password)
 
     def clickBtnLogin(self):
+        self.verify_element_displayed(self.BTN_LOGIN)
         self.click_element(self.BTN_LOGIN)
 
     def validateEmptyUsername(self):
