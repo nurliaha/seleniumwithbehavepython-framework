@@ -26,3 +26,7 @@ class LoginPage(BasePage):
 
     def setLoginusername(self, username):
         self.inputUsername(username)
+
+    def setLoginPassword(self, pwd):
+        self.inputPassword(pwd)
+

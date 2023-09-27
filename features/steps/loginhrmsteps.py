@@ -1,6 +1,6 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-
+from pages.dashboardPages import DashboardPage
 from pages.loginPages import LoginPage
 from behave import *
 from selenium import webdriver
@@ -10,11 +10,12 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 @given(u'Launch the browser')
-def launchtheBrowser(context):
+def launchTheBrowser(context):
     context.driver = webdriver.Chrome(
         service=ChromeService(ChromeDriverManager(driver_version="116.0.5845.96").install()))
     context.driver.maximize_window()
     context.loginPage = LoginPage(context.driver)
+    context.dashboardPage = DashboardPage(context.driver)
 
 
 @then(u'Open the https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
@@ -31,7 +32,7 @@ def verifyLogoHRM(context):
         return element.is_displayed()
     except:
         context.driver.close()
-        assert False, "Failed vrify logo"
+        assert False, "Failed verify logo"
 
 
 @then(u'Input valid username "{user}" and password "{pwd}"')
@@ -54,11 +55,14 @@ def clickLoginButton (context):
 
 
 
-# @then(u'Login is successful and dashboard is opened')
-# def dashboardHRM(context):
-#     raise NotImplementedError(u'STEP: Then Login is successful and dashboard is opened')
+@then(u'Login is successful and dashboard is opened')
+def validate_dashboard_page(context):
+        try:
+            context.dashboardPage.validatePageLoaded()
+        except:
+            assert False, "Test is failed in validating dashboard"
 
-#
-# @then(u'browser close')
-# def browserClose(context):
-#     raise NotImplementedError(u'STEP: Then browser close')
+
+@then(u'browser close')
+def stepImpl(context):
+   context.driver.close()
