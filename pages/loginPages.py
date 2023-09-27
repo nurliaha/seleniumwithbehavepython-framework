@@ -5,12 +5,13 @@ class LoginPage(BasePage):
     TXT_USERNAME = (By.NAME, "username")
     TXT_PASSWORD = (By.NAME, "password")
     BTN_LOGIN = (By.XPATH, "//button[text()=' Login ']")
-    MSG_INVALIDCREDS = (By.ID, "spanMessage")
+    MSG_ERR = (By.XPATH, "//span[text()='Required']")
+    MSG_INVALIDCREDS = (By.XPATH, "//p[text()='Invalid credentials']")
 
     def __init__(self, driver):
         super().__init__(driver)
 
-    def enter_login_credentials(self, user, pwd):
+    def enterLoginCredentials(self, user, pwd):
         self.input_element(self.TXT_USERNAME, user)
         self.input_element(self.TXT_PASSWORD, pwd)
 
@@ -24,9 +25,15 @@ class LoginPage(BasePage):
     def clickBtnLogin(self):
         self.click_element(self.BTN_LOGIN)
 
-    def setLoginusername(self, username):
-        self.inputUsername(username)
+    def validateEmptyUsername(self):
+        self.verify_element_displayed(self.MSG_ERR)
+        assert self.get_element_text(self.MSG_ERR) == "Required"
 
-    def setLoginPassword(self, pwd):
-        self.inputPassword(pwd)
+    def validateEmptyPassword(self):
+        self.verify_element_displayed(self.MSG_ERR)
+        assert self.get_element_text(self.MSG_ERR) == "Required"
+
+    def validateInvalidCredential(self):
+        self.verify_element_displayed(self.MSG_INVALIDCREDS)
+        assert self.get_element_text(self.MSG_INVALIDCREDS) == "Invalid credentials"
 

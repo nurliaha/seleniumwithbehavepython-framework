@@ -17,12 +17,10 @@ def launchTheBrowser(context):
     context.loginPage = LoginPage(context.driver)
     context.dashboardPage = DashboardPage(context.driver)
 
-
 @then(u'Open the https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
 def openLink(context):
     context.driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     time.sleep(2)
-
 
 @when(u'Verify that the logo present')
 def verifyLogoHRM(context):
@@ -34,15 +32,13 @@ def verifyLogoHRM(context):
         context.driver.close()
         assert False, "Failed verify logo"
 
-
-@then(u'Input valid username "{user}" and password "{pwd}"')
+@then(u'Provide the username "{user}" and password "{pwd}"')
 def enter_login_creds(context,user, pwd):
     try:
-        context.loginPage.enter_login_credentials(user, pwd)
+        context.loginPage.enterLoginCredentials(user, pwd)
     except:
         context.driver.close()
         assert False, "Test is failed in enter login credentials"
-
 
 @then(u'Click login button')
 def clickLoginButton (context):
@@ -53,15 +49,54 @@ def clickLoginButton (context):
         context.driver.close()
         assert False, "Test is failed in enter login"
 
-
-
 @then(u'Login is successful and dashboard is opened')
 def validate_dashboard_page(context):
         try:
             context.dashboardPage.validatePageLoaded()
         except:
+            context.driver.close()
             assert False, "Test is failed in validating dashboard"
+@then(u'Provide the username "{user}"')
+def enter_login_creds(context, user):
+    try:
+        context.loginPage.inputUsername(user)
+    except:
+        context.driver.close()
+        assert False, "Test is failed in enter password"
 
+
+@then(u'Provide the passsword "{pwd}"')
+def enter_login_creds(context, pwd):
+    try:
+        context.loginPage.inputPassword(pwd)
+    except:
+        context.driver.close()
+        assert False, "Test is failed in enter password"
+
+@then(u'Login is failed with invalid credential')
+def validate_invalid_login(context):
+    try:
+        context.loginPage.validateInvalidCredential()
+    except:
+        context.driver.close()
+        assert False, "Test is failed with invalid credentials"
+
+
+@then(u'Login is failed and empty username error is displayed')
+def validate_empty_username(context):
+    try:
+        context.loginPage.validateEmptyUsername()
+    except:
+        context.driver.close()
+        assert False, "Test is failed in validate empty username"
+
+@then(u'Login is failed and empty password error is displayed')
+def validate_empty_password(context):
+    try:
+        context.loginPage.validateEmptyPassword()
+    except:
+        context.driver.close()
+        assert False, "Test is failed in validate empty password"
 
 @then(u'browser close')
 def stepImpl(context):
