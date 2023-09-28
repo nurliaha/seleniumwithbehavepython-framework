@@ -1,4 +1,4 @@
-Feature: orangeHRM Logo
+Feature: Login
   Background:
     Given Launch the browser
     Then Open the https://opensource-demo.orangehrmlive.com/web/index.php/auth/login

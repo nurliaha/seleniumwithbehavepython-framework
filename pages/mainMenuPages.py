@@ -1,10 +1,7 @@
-import time
-
 from pages.basePages import BasePage
 from selenium.webdriver.common.by import By
 
-class DashboardPage(BasePage):
-    TXT_DASHBOARD = (By.XPATH, "// h6[text() = 'Dashboard']")
+class MenuPage(BasePage):
     SEARCH = (By.CSS_SELECTOR, "[placeholder='Search']")
     MENU_ADMIN = (By.XPATH, "//span[text()='Admin']")
     MENU_PIM = (By.XPATH, "//span[text()='PIM']")
@@ -19,14 +16,8 @@ class DashboardPage(BasePage):
     MENU_CLAIM = (By.XPATH, "//span[text()='Claim']")
     MENU_BUZZ = (By.XPATH, "//span[text()='Buzz']")
 
-    # Board menu:
-    TITLE_TIME = (By.XPATH, "//h6[text()='Time']")
     def __init__(self, driver):
         super().__init__(driver)
-
-    def validatePageLoaded(self):
-        self.verify_element_displayed(self.TXT_DASHBOARD)
-        assert self.get_element_text(self.TXT_DASHBOARD) == "Dashboard"
 
     def clickBtnSearch(self):
         self.verify_element_displayed(self.SEARCH)
@@ -71,22 +62,3 @@ class DashboardPage(BasePage):
     def clickBtnBuzz(self):
         self.verify_element_displayed(self.MENU_BUZZ)
         self.click_element(self.MENU_BUZZ)
-
-    def inputSearch(self, search):
-        self.verify_element_displayed(self.SEARCH)
-        self.input_element(self.SEARCH, search)
-
-    def validateSearchTime(self):
-        self.verify_element_displayed(self.MENU_TIME)
-        time.sleep(3)
-        assert self.get_element_text(self.MENU_TIME) == "Time"
-
-    def validaBoardTime(self):
-        self.verify_element_displayed(self.TITLE_TIME)
-        assert self.get_element_text(self.TITLE_TIME) == "Time"
-
-
-
-
-
-

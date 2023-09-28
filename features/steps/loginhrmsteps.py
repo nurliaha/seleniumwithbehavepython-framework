@@ -50,7 +50,7 @@ def clickLoginButton (context):
         assert False, "Test is failed in enter login"
 
 @then(u'Login is successful and dashboard is opened')
-def validateDashboardPpage(context):
+def validateDashboardPage(context):
         try:
             context.dashboardPage.validatePageLoaded()
         except:
